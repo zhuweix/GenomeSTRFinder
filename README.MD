@@ -15,39 +15,32 @@ A command-line tool for analyzing Short Tandem Repeats (STRs) from BAM files. Th
 ### Prerequisites
 
 - Python 3.11 or later
-- Required Python packages:
-  ```
-  pysam
-  typer
-  pandas
-  numpy
-  ```
+- Required packages will be automatically installed through pip
 
-### Installing the Package
+### Installing for Development
 
 1. Clone the repository:
 ```bash
-git clone [your-repository-url]
+git clone https://github.com/zhuweix/GenomeSTRFinder.git
 ```
 
-2. Install in development mode:
+2. Install development dependencies and the package in editable mode:
 ```bash
-pip install -e .
+cd GenomeSTRFinder
+pip install .
 ```
 
-Or install the required dependencies:
-```bash
-pip install pysam typer pandas numpy
-```
+This will automatically install all required dependencies:
+- Core dependencies: pysam, typer, pandas, numpy
 
 
 
 ## Usage
 
-The tool is run from the command line with three required arguments:
+After installation, you can run the tool using the command-line interface:
 
 ```bash
-python src/strfinder/findstr.py <bam_file> <config_file> <output_file>
+strfinder <bam_file> <config_file> <output_file>
 ```
 
 Arguments:
@@ -66,7 +59,7 @@ str_file = "path/to/str_patterns.csv"
 
 [Parameter]
 min_count = 3
-max_dist = 5
+max_dist = 150
 ```
 
 ### Configuration Files
@@ -79,32 +72,31 @@ max_dist = 5
    - Defines STR patterns to search for
    - Required columns: `chrom`, `name`, `seq`
 
+   The config/STR_NIST.csv file contains a list of STR motif from the [NIST STRBase database](https://strbase.nist.gov/).
+
+### Parameters
+
+min_count: Minimum number of repeat occurrences to consider a pattern
+max_dist: Maximum distance between adjacent motifs to combine
+
 ## Output Format
 
 The tool generates a CSV file with the following columns:
 - `STRName`: Name of the STR pattern
 - `Motif`: The repeat motif sequence
-- `MotifCount`: Number of repeat occurrences
+- `MotifCount`: Number of repeat occurrences (N1;N2...;Nk if mutliple motifs are within max_dist distance, set in the configuration)
 
 ## Examples
 
 1. Basic usage:
 ```bash
-python src/strfinder/findstr.py sample.bam config.toml results.csv
+strfinder sample.bam config.toml results.csv # results.csv.gz is also supported for compressed output
 ```
 
-2. Example chromosome mapping CSV:
+2. Example STR patterns CSV:
 ```csv
-ref,chrom
-chr1,1
-chr2,2
-```
-
-3. Example STR patterns CSV:
-```csv
-chrom,name,seq
-1,STR1,CAG
-2,STR2,AT
+STRName,Motif,MotifCount
+D1S1677,TTCC,4;4
 ```
 
 ## Technical Details
@@ -116,3 +108,7 @@ The tool:
 - Handles chromosome name mapping
 - Supports variable repeat counts
 
+
+## License
+
+MIT License

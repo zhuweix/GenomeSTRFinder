@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "strfinder"
+version = "0.1.0"
+description = "A tool for analyzing Short Tandem Repeats (STRs) from BAM files"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Zhuwei Xu", email = "zhuweix8@gmail.com"},
+]
+dependencies = [
+    "pysam",
+    "typer",
+    "pandas",
+    "numpy",
+]
+
+[project.scripts]
+strfinder = "strfinder.findstr:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/strfinder"]
+
+[tool.hatch.version]
+path = "src/strfinder/__init__.py"
+
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
