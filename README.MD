@@ -90,8 +90,11 @@ The tool generates a CSV file with the following columns:
 
 1. Basic usage:
 ```bash
-strfinder sample.bam config.toml results.csv # results.csv.gz is also supported for compressed output
+strfinder sample.bam config.toml results.csv 
 ```
+
+- results.csv.gz is also supported for compressed output
+
 
 2. Example STR patterns CSV:
 ```csv
