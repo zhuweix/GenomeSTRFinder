@@ -1,0 +1,7 @@
+[Parameter]
+min_count = 4
+max_dist = 100
+
+[Data]
+chrom_file = "/home/xuz5/labdata/xuz5/231216_Patient_Cancer_Organize/data/github/GenomeSTRFinder/config/chm13v2.0.chromtable.csv"
+str_file = "/home/xuz5/labdata/xuz5/231216_Patient_Cancer_Organize/data/github/GenomeSTRFinder/config/STR_NIST.csv"
